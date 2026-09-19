@@ -1,0 +1,40 @@
+:root{
+    --primario:#0905b3;
+    --secundario:#7171A8;
+    --terciario: #365b36;
+    --cuaternario: #7d4669;
+
+}
+
+
+body{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: var(--primario);
+    font-size: 1.2rem;
+    background-color: var(--cuaternario);
+    text-align:center;
+}
+
+.menu{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.button{
+    padding: 10px;
+    background-color: var(--secundario);
+    border: 5px solid var(--primario);
+    color:azure;
+    font-size: 1.2rem;
+}
+
+#name{
+    padding:10px;
+    font-size: 1.2rem;
+}
+
+main{
+    margin:20px;
+    padding:10px;
+}
