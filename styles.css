@@ -2,9 +2,9 @@
     --color-text: #0F172A;      /* Deep navy */
     --color-primary: #2563EB;    /* Electric blue */
     --color-accent: #06B6D4;     /* Cyan */
-    --color-background: #F8FAFC;   /* Off-white */
-
+    --color-background: #8fa5bb;  /* Slate blue-gray */
 }
+
 
 header{
     display:flex;
@@ -35,6 +35,26 @@ body{
     background-color: var(--color-background);
     text-align:center;
 }
+
+.skills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.card{
+    padding:10px;
+    border-radius:10px;
+    background-color:var(--color-primary);
+    color:white;
+}
+
+@media (max-width: 600px){
+    .skills{
+        grid-template-columns:1fr;
+    }
+}
+
 
 .menu{
     display:flex;
