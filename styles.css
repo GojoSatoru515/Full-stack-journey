@@ -1,8 +1,22 @@
 :root{
-    --color-text: #0F172A;      /* Deep navy */
-    --color-primary: #2563EB;    /* Electric blue */
-    --color-accent: #06B6D4;     /* Cyan */
-    --color-background: #8fa5bb;  /* Slate blue-gray */
+     /* --- Neutrals (structure) --- */
+    --color-bg: #F8FAFC;         /* page background - very light */
+    --color-surface: #FFFFFF;    /* cards & panels */
+    --color-surface-2: #F1F5F9;  /* subtle alternate panels */
+    --color-border: #E2E8F0;     /* hairline borders */
+    --color-text: #0F172A;       /* main text - deep navy */
+    --color-text-muted: #64748B; /* secondary / less important text */
+
+    /* --- Brand (identity) --- */
+    --color-primary: #2563EB;       /* electric blue - main accent */
+    --color-primary-hover: #1D4ED8; /* darker blue for hover states */
+    --color-accent: #06B6D4;        /* cyan - highlights */
+    --color-secondary: #7C3AED;     /* violet - a modern tech pop */
+
+    /* --- State (feedback) --- */
+    --color-success: #22C55E;   /* green - success messages */
+    --color-warning: #F59E0B;   /* amber - warnings */
+    --color-danger: #EF4444;    /* red - errors */
 }
 
 
@@ -32,7 +46,7 @@ body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: var(--color-text);
     font-size: 1.2rem;
-    background-color: var(--color-background);
+    background-color: var(--color-bg);
     text-align:center;
 }
 
@@ -44,26 +58,56 @@ body{
 
 .card{
     padding:10px;
-    border-radius:10px;
-    background-color:var(--color-primary);
-    color:white;
-    box-shadow:inset 0 0 10px rgba(0,0,0,0.5); 
+    border:1px solid var(--color-border);
+    background-color:var(--color-surface);
+    color:var(--color-text);
+    box-shadow: 0 4px 12px rgba(15,23,42,0.08); 
+    transition: box-shadow 0.2s;
+}
+
+
+.card h3{
+    color:var(--color-secondary);
 }
 
 .card:hover{
-    background-color:var(--color-accent);
+    box-shadow: 0 8px 20px rgba(15,23,42,0.15);
 }
 
 .sub-title{
     margin-top:20px;
     font-size:2rem;
-    color:white;
+    color:#fff;
     background-color:var(--color-primary);
+    padding:10px;   
 }
 
 @media (max-width: 600px){
     .skills{
         grid-template-columns:1fr;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+    :root{
+        /* --- Neutrals --- */
+        --color-bg: #0B1120;         /* deep dark navy */
+        --color-surface: #1E293B;    /* cards - lighter than bg */
+        --color-surface-2: #334155;
+        --color-border: #334155;     /* subtle borders on dark */
+        --color-text: #F1F5F9;       /* light text */
+        --color-text-muted: #94A3B8; /* muted light text */
+
+        /* --- Brand (brighter, to pop on dark) --- */
+        --color-primary: #3B82F6;
+        --color-primary-hover: #60A5FA;  /* hover goes LIGHTER on dark */
+        --color-accent: #22D3EE;
+        --color-secondary: #A78BFA;
+
+        /* --- State --- */
+        --color-success: #4ADE80;
+        --color-warning: #FBBF24;
+        --color-danger: #F87171;
     }
 }
 
@@ -94,10 +138,15 @@ body{
 button{
     padding: 10px;
     background-color: var(--color-primary);
-    border: 5px solid var(--color-text);
-    color:azure;
+    border: none;
+    border-radius:5px;  
+    color:#fff;
     font-size: 1.2rem;
-    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: var(--color-primary-hover);
 }
 
 #name{
