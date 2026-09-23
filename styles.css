@@ -48,6 +48,11 @@ body{
     font-size: 1.2rem;
     background-color: var(--color-bg);
     text-align:center;
+    line-height:1.6;  /* space between lines of text */
+}
+
+section{
+    margin-bottom:40px;
 }
 
 .skills{
@@ -183,6 +188,21 @@ button:hover{
 
 
 main{
-    margin:20px;
-    padding:10px;
+    max-width: 800px; /* content never gets wider than this */
+    margin:0 auto;  /*auto left/right = centere */
+    padding:20px;
+}
+
+main img{
+    max-width:100%;
+    height:auto;  /* safety: images never overflow */
+}
+
+.avatar{
+    width:160px;
+    height:160px;
+    object-fit: cover; /* crop to fill the circle without distorting */
+    border-radius: 50%;  /* 50% = a perfect circle */
+    border: 3px solid var(--color-border);
+
 }
