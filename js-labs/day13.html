@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Variables → Page</title></head>
+<body>
+  <h1 id="greeting">Loading...</h1>
+  <p id="info"></p>
+
+  <script>
+    // 1) Today's lesson — declare variables
+    const userName = "Ana";
+    let itemCount = 10;
+
+    // 2) Find the elements on the page by their id
+    const greetingElement = document.getElementById("greeting");
+    const infoElement = document.getElementById("info");
+
+    // 3) Push the variable values INTO the page
+    greetingElement.textContent = "Hello, " + userName + "!";
+    infoElement.textContent = "You have " + itemCount + " items in your cart.";
+  </script>
+</body>
+</html>
