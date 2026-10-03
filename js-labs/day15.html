@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 15 — Order Summary</title>
+</head>
+
+<body>
+    <h1>Shipping Rules engine</h1>
+    <script>
+    const country = "MX";           // "MX", "US", "CA", or anything else
+    const weightKg = "3.5";         // string: must be converted!
+    const orderSubtotal = "1650";   // string: must be converted!
+    const isExpress = false;
+    const couponCode = null;        // null, "SAVE10", "FREESHIP", or an unknown code
+    const memberTier = "";          // "gold", "silver", or "" (not a member)
+
+    const weight = Number(weightKg);
+    const subtotal = Number(orderSubtotal);
+
+    if(!weight || weight<=0){
+        console.log("Error: invalid weight");
+    } else{
+        let baseRate;
+
+        if(weight<=1){
+            baseRate = 99;
+        } else if(weight<=5){
+            baseRate = 149;
+        } else if(weight<=20){
+            baseRate = 249;
+        } else{
+            baseRate = 249 + 15 * (weight - 20);
+        }
+
+        let zone;
+        let zoneMultiplier;
+
+        switch(country){
+            case "MX":
+                zone = "Domestic";
+                zoneMultiplier = 1;
+                break;
+            case "US":
+            case "CA":
+                zone = "North America";
+                zoneMultiplier = 2;
+                break;
+            default:
+                zone = "International";
+                zoneMultiplier = 3.5;
+        }
+
+        const expressMultiplier = isExpress ? 1.5 : 1;
+
+        const tier = memberTier || "standard";
+        let discount;
+        if(tier === "gold"){
+            discount = 0.20;
+        } else if (tier === "silver"){
+            discount = 0.10;
+        } else {
+            discount = 0;
+        }
+
+        const coupon = couponCode ?? "NONE";
+        let couponDiscount = 0;
+        let freeShipping = false;
+
+        switch(coupon){
+            case "SAVE10":
+                couponDiscount = 0.10;
+                break;
+            case "FREESHIP":
+                freeShipping = true;
+                break;
+            case "NONE":
+                break;
+            default:
+                console.log("Warning: coupon " + coupon + " is not valid");
+        }
+
+        const isFreeShipping = freeShipping || (zone === "Domestic" && subtotal >= 1500 && !isExpress);
+
+        let shippingCost = baseRate * zoneMultiplier * expressMultiplier;
+        shippingCost = shippingCost * (1 - discount);
+        shippingCost = shippingCost * (1 - couponDiscount);
+        if (isFreeShipping){
+            shippingCost = 0;
+        }
+
+        const orderTotal = subtotal + shippingCost;
+
+        console.log("Country: " + country + " (" + zone + ")");
+        console.log("Weight: " + weight + " kg");
+        console.log("Subtotal: $" + subtotal);
+        console.log("Base rate: $" + baseRate);
+        console.log("Express: " + (isExpress ? "yes" : "no"));
+        console.log("Member tier: " + tier);
+        console.log("Coupon: " + coupon);
+        console.log("Free shipping: " + (isFreeShipping ? "yes" : "no"));
+        console.log("Shipping cost: $" + shippingCost);
+        console.log("Order total: $" + orderTotal);
+    }
+
+
+
+    </script>
+</body>
+
+</html>

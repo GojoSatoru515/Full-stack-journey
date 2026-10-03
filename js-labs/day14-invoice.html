@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+         <h1>Invoice</h1>
+            <script>
+                const clientName = "Northwind Co.";
+                const hourlyRate = 45;
+                const hoursWorked = "42";
+                const taxRate = 0.16;
+                const discountRate = 0.10;
+
+                const hours = Number(hoursWorked);          // convert ONCE, reuse
+                const grossPay = hours * hourlyRate;
+                const discountAmount = grossPay * discountRate;
+                const payAfterDiscount = grossPay - discountAmount;
+                const taxAmount = payAfterDiscount * taxRate;
+                const finalNet = payAfterDiscount - taxAmount;
+                
+                const isLargeJob = hours > 40;              // ← boolean: stores true/false
+                const isTaxable = taxRate > 0;              // ← any expression that's true
+
+
+                console.log("Client:", clientName);
+                console.log("Hours:", hours);
+                console.log("Rate:", hourlyRate);
+                console.log("Gross pay:", grossPay);
+                console.log("Discount:", discountAmount);
+                console.log("After discount:", payAfterDiscount);
+                console.log("Tax amount:", taxAmount);
+                console.log("Final total:", finalNet);
+                console.log("Large job?", isLargeJob);
+                console.log("Taxable?", isTaxable);
+                console.log("typeof hours:", typeof hours);       // "number"
+                console.log("typeof finalNet:", typeof finalNet); // "number"
+                
+            </script>
+
+    </body>
+   
