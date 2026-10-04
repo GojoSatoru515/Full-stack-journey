@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 16 — Savings calculator</title>
+</head>
+
+<body>
+    <h1>Savings Calculator</h1>
+    <script>
+        const goalInput = "20000";        // string, like form data
+        const depositInput = "1500";      // string, like form data
+        const startingBalance = 2000;
+        const bonusEveryNMonths = 3;
+        const bonusAmount = 500;
+        const maxMonths = 24;             // safety limit
+
+        const goal = Number(goalInput);
+        const deposit = Number(depositInput);
+        let balance = startingBalance;
+        let months = 0;
+        let totalDeposited = 0;
+        let totalBonus = 0;
+
+        if(!deposit||deposit<=0){
+            console.log("Error: invalid deposit");}
+            
+            else{
+                while(balance<goal && months<maxMonths){
+                    months++;
+                    totalDeposited += deposit;
+                    balance += deposit;
+                    const isBonus = months%bonusEveryNMonths===0;
+                    if(isBonus){
+                        balance += bonusAmount;
+                        totalBonus += bonusAmount;
+                    }
+                    console.log(`Month ${months}: balance ${balance}${isBonus ? ' (bonus!)' : ''}`);
+                    if(balance<goal && months>=maxMonths){
+                        console.log(`Warning: goal not reached in ${maxMonths} months`);
+                        break;
+                    }
+                }
+                console.log(`Total deposited: ${totalDeposited}`);
+                console.log(`Total bonus: ${totalBonus}`);  
+                console.log(`Final balance: ${balance}`);
+                console.log(`Months taken: ${months}`);    
+            }
+    </script>
+</body>
+</html>
