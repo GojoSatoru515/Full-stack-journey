@@ -1,0 +1,30 @@
+const word= "excellent"; 
+const specific="e" 
+let increased= ""; 
+let counter=0;
+for(let index = 0; index<word.length; index++){ increased+=word[index]; 
+    if(word[index]===specific){
+        counter++;
+    }
+}
+console.log(`the number of e in the word ${word} is ${counter}`);
+
+
+
+const num=42;
+const client="Ana";
+const amount=1250;
+
+const stringNum = num.toString();
+const stringAmount = amount.toString();
+
+const realNum = stringNum.padStart(4,"0");
+
+console.log(`Invoice INV-${realNum} for ${client}: $${stringAmount}`);
+
+
+const email = "  Pedro@mail.com ";
+const cleanEmail = email.trim().toLowerCase();
+
+console.log(cleanEmail);
+
