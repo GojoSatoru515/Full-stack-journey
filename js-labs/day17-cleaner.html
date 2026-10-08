@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 17 — Cleaner</title>
+</head>
+
+<body>
+    <h1>Cleaner</h1>
+    <script>
+        const rawName = "  maría  LÓPEZ ";
+        const rawEmail = " Maria.Lopez@GMAIL.com ";
+        const rawPhone = "614 555 0198";
+        const orderId = "57";
+
+        const cleanedName = rawName.trim().toLowerCase().replace(/\s+/g, " ");
+        const spaceIndex = cleanedName.indexOf(" ");
+        if(spaceIndex === -1){
+            console.log("Error: invalid name");
+        }
+        else{
+            const firstName = cleanedName.slice(0, spaceIndex);
+            const lastName = cleanedName.slice(spaceIndex + 1);
+            const capFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+            const capLast  = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+            const initials = capFirstName.charAt(0) + capLast.charAt(0);
+
+            const cleanEmail =rawEmail.trim().toLowerCase();
+            const validEmail = cleanEmail.includes("@") && cleanEmail.includes(".") && cleanEmail.charAt(0) !== "@";
+
+            const cleanPhone = rawPhone.replace(/\s/g,"");
+            const validPhone =cleanPhone.length === 10;
+            const maskedPhone = cleanPhone.slice(-4).padStart(cleanPhone.length,"*");
+            
+            const folio = (`ORD-${orderId.padStart(5,"0")}`);
+            const emailText = validEmail ? cleanEmail : "Invalid email";
+            const phoneText = validPhone ? maskedPhone : "Invalid phone";
+            console.log(`Name: ${capFirstName} ${capLast} 
+            Initials: ${initials} 
+            Email: ${emailText} 
+            Phone: ${phoneText} 
+            Order: ${folio}`);
+        }
+    </script>
+
+</body>
+</html>
