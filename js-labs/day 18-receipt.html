@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 18 - Receipt</title>
+</head>
+<body>
+    <h1>Day 18 - Receipt</h1>
+    <script>
+        const storeName = "Café La Sierra";
+        const receiptNumber = 482;
+        const rawCustomer = "  jorge   RAMÍREZ ";
+        const memberLevel = "silver";        // "gold", "silver", or "" (not a member)
+        const couponCode = "PROMO";       // "SAVE10", "FREECOFFEE", null, or an unknown code
+        const paymentMethod = "cash";      // "card" or "cash"
+
+        const itemCount = 3;
+        const item1Name = "Café americano";      const item1Price = "45";  const item1Qty = "2";
+        const item2Name = "Pan de elote";        const item2Price = "abc";  const item2Qty = "1";
+        const item3Name = "Burrito de machaca";  const item3Price = "89";  const item3Qty = "3";
+        
+        const cleanedCustomer = rawCustomer.trim().toLowerCase().replace(/\s+/g, " ");
+        const spaceIndex = cleanedCustomer.indexOf(" ");
+        const firstName =cleanedCustomer.slice(0,spaceIndex);
+        const lastName = cleanedCustomer.slice(spaceIndex +1);
+        const capFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+        const capLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+        const fullName =capFirstName + " " + capLastName;
+
+        let subtotal = 0;
+        let units = 0;
+        for(let i=1; i<= itemCount; i++){
+            let name, priceInput, qtyInput;
+            switch(i){
+                case 1:
+                    name = item1Name;
+                    priceInput = item1Price;
+                    qtyInput = item1Qty;
+                    break;
+                case 2:
+                    name = item2Name;
+                    priceInput = item2Price;
+                    qtyInput = item2Qty;
+                    break;
+                case 3:
+                    name = item3Name;
+                    priceInput = item3Price;
+                    qtyInput = item3Qty;
+                    break;
+            }
+            const price = Number(priceInput);
+            const qty = Number(qtyInput);
+
+            if(!price || !qty || price<= 0 || qty<=0){
+                console.log(`Skipped ${name} invalid data`);
+                continue;
+            }
+            const lineTotal = price *qty;
+            subtotal += lineTotal;
+            units += qty;
+            console.log(`Item ${i}: ${name} x${qty} $${lineTotal.toFixed(2).padStart(10, ".")}`);
+        }
+
+
+        const level = memberLevel || "standard";
+        let memberDiscount = 0;
+        if (level === "gold") {
+            memberDiscount = subtotal * 0.10;
+        } else if (level === "silver") {
+            memberDiscount = subtotal * 0.05;
+        }
+
+        const coupon = couponCode ?? "NONE";
+        let couponDiscount = 0;
+        switch(coupon){
+            case "SAVE10":
+                couponDiscount = subtotal * 0.10;
+                break;
+            case "FREECOFFEE":
+                couponDiscount =subtotal>=200 ? 45 : 0;
+                break;
+            case "NONE":
+                break;
+                default:
+                    console.log(`⚠️Coupon ${coupon} is not valid`);
+                }
+
+        const bulkDiscount = units >=5 ? subtotal * 0.05 : 0;
+        const totalDiscount = memberDiscount + couponDiscount + bulkDiscount;
+        const afterDiscount = subtotal - totalDiscount;
+        const tax = afterDiscount * 0.16;
+
+        const fee = paymentMethod ==="card" ? (afterDiscount + tax) * 0.03 : 0;
+
+        const cleanedFolio = receiptNumber.toString().padStart(6,"0");
+        const folio = `Folio: R-${cleanedFolio}`;
+        const total = afterDiscount + tax + fee;
+
+        console.log(`${folio}`);
+        console.log(`Customer: ${fullName}`);
+        console.log(`Subtotal: $${subtotal}`);
+        console.log(`Member discount: $${memberDiscount}`);
+        console.log(`Coupon discount: $${couponDiscount}`);
+        console.log(`Extra discount: $${bulkDiscount}`);
+        console.log(`Tax: $${tax}`);
+        console.log(`Payment method: ${paymentMethod}`);
+        console.log(`Fee: $${fee}`);
+        console.log(`Total: $${total.toFixed(2)}`);
+         
+    </script>
+
+
+    </body>
+</html>
