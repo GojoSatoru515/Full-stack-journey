@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 20 - Arrow functions</title>
+</head>
+<body>
+    <h1>Day 20 - Pricings</h1>
+    <script>
+      const applyDiscount = (price, rate = 0) => price - price*rate;
+
+      const addTax = (amount, taxRate = 0.16) => amount + amount*taxRate;
+
+      const formatMoney = (amount, currency = "MXN") => `$${amount.toFixed(2)} ${currency}`;
+
+      const calculateLineTotal = (price, qty = 1) => price*qty;
+
+      const calculateOrderTotal = (subtotal, discountRate=0, taxRate = 0.16) => addTax(applyDiscount(subtotal,discountRate),taxRate);
+
+     
+      //this is how it should be, i think haha
+      // Pure: depends only on its inputs and changes nothing outside.
+      // The old version was impure: it changed runningTotal (outside variable)
+      // and printed with console.log (side effect).
+      const addItem = (currentTotal, price) => currentTotal + price;
+
+      console.log(`Line: Cafe Americano x2 = ${formatMoney(calculateLineTotal(45,2))} 
+      Order total (25% off): ${formatMoney(calculateOrderTotal(395,0.25))}`);
+     </script>
+
+
+    </body>
+</html>
