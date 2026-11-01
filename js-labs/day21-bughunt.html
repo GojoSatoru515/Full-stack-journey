@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 21 - Bug hunt</title>
+</head>
+<body>
+    <h1>Day 21 - Bug hunt</h1>
+    <script>
+
+    const TAX_RATE = 0.16;
+    let ordersProcessed = 0;
+
+    const formatOrder = (id, amount) => { 
+    let shipping ;
+    if (amount > 200) {
+        shipping = 0; // shipping should be declare outside the block
+    } else {
+        shipping = 99;
+    }
+    const total = amount + amount * TAX_RATE + shipping;
+    return `Order ${id}: $${total}`;
+    }; 
+
+    console.log(formatOrder("A-1", 250));
+    console.log(formatOrder("B-2", 150));
+
+    const countOrder = (count) =>
+    count + 1;
+    /*let ordersProcessed = 0;*/ //this is already declared outside, i dont know if this makes it pure
+    
+
+    for (let i = 1; i <= 3; i++) { // this one has a var instead of let
+    ordersProcessed = countOrder(ordersProcessed);
+    }
+    /*console.log(`Loop counter after loop: ${i}`);*/ // this one sends a reference error
+    console.log(`Orders processed: ${ordersProcessed}`);
+
+    function getDiscount(amount) {
+    const discount = amount * 0.1; 
+    return discount;// missed the return
+    }
+    
+    console.log(getDiscount(500));//i moved the fuction inside the log
+     </script>
+
+
+    </body>
+</html>

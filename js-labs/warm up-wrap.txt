@@ -1,0 +1,40 @@
+warm up day 21
+1. undefined, cause console.log doesn't store the value
+2. undefined you are missing the return
+3. "N/A", ` `.
+4. impure, cause its going to change its value depending on how many times you have run the function
+5. hi undefined.
+
+task 1
+a) 'global' and 'global'
+b) 6, undefined
+c) 8
+d) undefined, 10
+wrap
+one sentence : basically where a wariable lives
+1. is whare you can see and use a variable
+2. the difference is where the variables lives and can be used, the function or the block
+3. is like the timming of when you use a varible, for example, you put console.log(${name}) and then you declare the funtion name - is correct, but if you try to do it with const is not gonna work it is better to declare all you varibles on the top an the use it after.
+4. undefined, reference error
+5. `hola Ana`
+6. 2, 2
+7. undefined, 1
+8. reference error
+9. 2
+10. 3
+11. reference error
+12. let final;
+if (true) {
+  let final = "done";
+    console.log(final);
+}// the value of final is inside the block, so it only prints the value of the global scope
+13. function getTotal(price) {
+  const withTax = price * 1.16;
+  return withTax;  // you need the return to return the value you defined in const
+}
+console.log(getTotal(100)); // this is how you need to put it to print a function like that
+14. i think you missed the limit of the counter:
+let clicks = 0;
+function click() ( let clicks = 0; clicks<=20; clicks++; )
+15. for (let n = 0; n < 3; n++) { }
+console.log(n);
