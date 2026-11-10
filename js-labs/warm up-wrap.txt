@@ -38,3 +38,58 @@ let clicks = 0;
 function click() ( let clicks = 0; clicks<=20; clicks++; )
 15. for (let n = 0; n < 3; n++) { }
 console.log(n);
+
+
+
+warm up day 22
+1. 80, 100
+2. undefined, 9
+3. a was declare with none value and b was never declare
+4. version b, cause even if variable tax is going to change depending on price you dont need to declare it outside the function
+5. let total=0;
+    function addTotal(amount) { total = total + amount; return total;}
+
+task 1 predictions
+9
+1
+4
+3.35
+250
+11
+
+wrap
+one sentence: because there are decimals that can't be store so for the clients is better to see rounded numbers
+1. is the same answer as in the question before, js store decimals in binary and some decimals can't be store
+2. .tofixed makes a string the math.round keeps the value as a number
+3. mutation is when you assign a different date, and you copy the date in addDate to keep the original date intact
+4. -3
+5. -3
+6. 3
+7. 4.5010
+8. 2 //march
+9. may 1 2026
+10. you only change the value rate inside the function, outside it has other value, if the point is to change it completly this is wrong
+11. because you forget to add a +1 in the 5 value it should be (max-min+1) so in this way you are saying there is 6 values that you use btw 1 and 6.
+12. because js count 0 as the start so 0 stands for january
+13. const minimumFee = (fee) => {
+  const c = Math.min(fee,500);
+  return c;
+}
+14. const boxesNeeded = (items,perBox) => { 
+  const a = Math.ceil(items/perBox);
+  return a;
+}
+15. const isWeekend = (date) => {
+  if(date.day()===6 || date.day()===0){
+    return true;
+  }
+  return false;
+}
+
+
+warm up day 23
+1. -7 and -8
+2. 9.91 is a string
+3. Math.min(fee,300) is the correct one and it gives you 300 when the fee is 120 and the other one the result is 120.
+4. d.getDate() is 8 and d.getDay() is 0 which is sunday
+5. .3 and 0

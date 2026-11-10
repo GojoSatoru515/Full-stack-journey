@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 22 - invoice dates</title>
+</head>
+<body>
+    <h1>Day 22 - invoice dates</h1>
+    <script>
+        const MS_PER_DAY = 1000 * 60 * 60 * 24;
+        const randomInt = (min,max) => Math.floor(Math.random() * (max-min + 1) + min);
+        const roundMoney = (amount) => Math.round(amount * 100) /100;
+        const formatDate = (date) => {
+            const day = date.getDate().toString().padStart(2,"0");
+            const month = (date.getMonth() + 1).toString().padStart(2,"0");
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        const addDays = (date,days) => {
+            const copy = new Date(date);
+            copy.setDate(copy.getDate() + days);
+            return copy;
+        }
+        const daysBetween = (start,end) => {
+            return Math.round((end.getTime() - start.getTime()) / MS_PER_DAY);
+        }
+        const generateFolio = (date) => {
+            const year = date.getFullYear();
+            const random = randomInt(1000,9999);
+            return `INV-${year}-${random}`;
+        }
+        const invoiceDate = new Date(2026, 9, 31);
+        const dueDate = addDays(invoiceDate, 30);
+        const folio = generateFolio(invoiceDate);
+        
+        console.log(formatDate(invoiceDate));                          // "31/10/2026"
+        console.log(formatDate(dueDate));                              // "30/11/2026"
+        console.log(formatDate(invoiceDate));                          // "31/10/2026" ← proves addDays didn't change it
+        console.log(formatDate(addDays(new Date(2026, 11, 20), 15)));  // "04/01/2027" ← crosses the year
+        console.log(formatDate(addDays(invoiceDate, -1)));             // "30/10/2026"
+        console.log(daysBetween(invoiceDate, dueDate));                // 30
+        console.log(roundMoney(1234.5678));                            // 1234.57
+        console.log(roundMoney(0.1 + 0.2));                            // 0.3
+        console.log(generateFolio(invoiceDate));                       // "INV-2026-" + 4 random digits
+        console.log(`Invoice ${folio} | Issued ${formatDate(invoiceDate)} | Due ${formatDate(dueDate)} (${daysBetween(invoiceDate, dueDate)} days) | Total $${roundMoney(1234.5678)}`); 
+     </script>
+
+
+    </body>
+</html>
