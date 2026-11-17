@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 23 - String compression and Closures</title>
+</head>
+<body>
+    <h1>Day 23 - String compression</h1>
+    <script>
+
+        const compressString = (word) => {
+            let compressed = "";
+            let count = 1;
+            for (let i=0; i<word.length; i++) {
+                if(word[i] === word[i+1]) {
+                    count++;
+                } else {
+                    compressed += word[i];
+                    compressed += count;
+                    count = 1;
+                }
+            }
+            if(compressed.length >= word.length) {
+                return word;
+            }
+            return compressed;
+        }
+        console.log(compressString("aaabccdddd"));
+        console.log(compressString("aabcccccaaa"));
+        console.log(compressString("zzzzzzzzzzzz"));
+        console.log(compressString("AAAaaa"));
+        console.log(compressString("abc"));
+        console.log(compressString("aabb"));
+        console.log(compressString(""));
+     </script>
+     <script>
+        const decompressString = (compressed) => {
+            let decompressed = "";
+            for(let i=0; i<compressed.length; i+=2) {
+                const letter = compressed[i];
+                const count = parseInt(compressed[i+1]);
+                decompressed += letter.repeat(count);
+            }
+            return decompressed;
+        };
+        console.log(decompressString("a3b1c2"));
+     </script>   
+    
+    <script> 
+        const createCounter = (start=0) => {
+            let count = start;
+            return () => {
+                count++;
+                return count;
+            }
+        };
+        const createLimiter = (maxUses, action) => {
+            let currentUses = 0;
+            return () => {
+                if(currentUses < maxUses) {
+                    currentUses++;
+                    return action();
+                } 
+                    return `Limit reached (${currentUses}/${maxUses})`;
+        
+            }
+        };
+        const makeFormatter = (currency) => {
+            return (amount) => {
+                return `${currency} $${amount.toFixed(2)}`;
+            }                 
+        };
+        const applyRule = (price,rule) => {
+            return rule(price);
+        };
+
+        const nextOrder = createCounter();
+        const nextInvoice = createCounter(1000);
+        console.log(nextOrder());      // 1
+        console.log(nextOrder());      // 2
+        console.log(nextInvoice());    // 1001
+        console.log(nextOrder());      // 3  ← independent from nextInvoice
+
+        const exportPdf = () => "PDF exported";
+        const freeExport = createLimiter(3, exportPdf);
+        console.log(freeExport());     // PDF exported
+        console.log(freeExport());     // PDF exported
+        console.log(freeExport());     // PDF exported
+        console.log(freeExport());     // Limit reached (3/3)
+        console.log(freeExport());     // Limit reached (3/3)
+
+        const mxn = makeFormatter("MXN");
+        const usd = makeFormatter("USD");
+        console.log(mxn(1234.5));      // MXN $1234.50
+        console.log(usd(99));          // USD $99.00
+
+        console.log(applyRule(1000, (p) => p * 0.9));               // 900
+        console.log(applyRule(1000, (p) => Math.max(p - 1500, 0))); // 0  ← a credit can't make the price negative
+
+        console.log(`Order #${nextOrder()} | Total ${mxn(applyRule(2400, (p) => p * 0.85))}`); 
+
+    </script>
+    </body>
+</html>

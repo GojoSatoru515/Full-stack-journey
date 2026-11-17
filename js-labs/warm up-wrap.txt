@@ -93,3 +93,51 @@ warm up day 23
 3. Math.min(fee,300) is the correct one and it gives you 300 when the fee is 120 and the other one the result is 120.
 4. d.getDate() is 8 and d.getDay() is 0 which is sunday
 5. .3 and 0
+
+wrap
+one sentence: closure is when you already use a value the times needed. something like that is the same example as the limiter
+
+1. is the value when the action is done
+2. const h = (price,rule) => rule(price); is this i dont know how to explain it
+3. dont remember what is lexical scope
+4. function, number
+5. 100
+6. 10y
+7. 5
+8. 1,2,1 then 3,2
+9. 2 and 2, because in the block the count starts at 0 everytime
+10. Hi, undefined
+11. const addTax = (p) => p * 1.16;
+const applyRule = (price, rule) => rule(price);
+applyRule(100, addTax);
+12. const makeFee = (fee) => {
+  return (amount) => amount + fee;
+}; // it needs the return, but you also need to declare a new const to return at the end of the sum.
+13. const makeMultiplier = (factor) => {
+  const double = makeMultiplier(2);
+  (p) => p * 2;
+  return double;
+}
+14. const createTotal = () => {
+  let counter = 0;
+  return () => {
+    counter += createTotal;
+    return counter;
+  };
+};
+  const cart = createTotal();
+15. const runTwice = (action) => {
+    let run = false;
+    return () => {
+      for(i=0; i<2; i++){
+        return "Done";
+      }
+      run = true;
+      return action();
+    };
+
+};
+
+
+
+
