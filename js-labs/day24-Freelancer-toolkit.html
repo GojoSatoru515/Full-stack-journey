@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Freelancer Toolkit</title>
+    </head>
+    <body>
+        <h1>Freelancer Toolkit</h1>
+        <script>
+            const TAX_RATE = 0.16;
+            const MS_PER_DAY = 1000 * 60 * 60 * 24;
+            const MIN_CHARGE = 1500;
+            const MAX_DISCOUNT = 0.3;
+
+            const roundMoney = (amount) => {
+                return Math.round(amount * 100) / 100;
+            };
+            const isValidAmount = (n) => {
+                return typeof n === "number" &&  n > 0;
+            };
+            const projectPrice = (hourlyRate, hours) => {
+                if(!isValidAmount(hourlyRate) || !isValidAmount(hours)) {
+                    return 0;
+                }
+                return roundMoney(hourlyRate * hours);
+            };
+            const applyDiscount = (amount, rate=0) => {
+                return roundMoney(amount - (Math.min(MAX_DISCOUNT,rate) * amount));
+            }; 
+            const addTax = (amount, taxRate=TAX_RATE) => {
+                return roundMoney(amount * (1 + taxRate));
+            };
+            const minimumCharge =(amount) => {
+                return Math.max(MIN_CHARGE, amount);
+            };
+            const makeFormatter = (currency) => {
+                return (amount) => {
+                    return `${currency} $${amount.toFixed(2)}`;
+                }
+            };
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2,"0");
+                const day = date.getDate().toString().padStart(2,"0");
+                return `${day}/${month}/${year}`;
+            };
+            const addDays = (date, days) =>  {
+                const copy = new Date(date);
+                copy.setDate(copy.getDate() + days);
+                return copy;
+            };
+            const daysBetween = (start, end) => {
+                return Math.round((end.getTime() - start.getTime()) / MS_PER_DAY);
+            };
+            const isWeekend = (date) => {
+                const day = date.getDay();
+                return day === 0 || day === 6;
+            };
+            const nextBusinessDay = (date) => {
+                const copy = new Date(date);
+                while(isWeekend(copy)) {
+                    copy.setDate(copy.getDate() + 1);
+                }
+                return copy;
+            };
+            const createFolioGenerator = (prefix, year) => {
+                let counter = 0;
+                return () => {
+                    counter++;
+                    return `${prefix}-${year}-${counter.toString().padStart(4,"0")}`;
+                }
+            };
+            const invoiceDate = new Date(2026, 10, 20);
+            const dueDate = nextBusinessDay(addDays(invoiceDate, 15));
+            const total = minimumCharge(addTax(applyDiscount(projectPrice(450, 12.5),0.1)));
+            const nextInvoice = createFolioGenerator("INV", 2026);
+            const nextQuote = createFolioGenerator("QUO", 2026);
+            console.log(nextInvoice());   // INV-2026-0001
+            console.log(nextInvoice());   // INV-2026-0002
+            console.log(nextQuote());     // QUO-2026-0001 ← independent
+            const mxn = makeFormatter("MXN");
+            const saturday = new Date(2026, 10, 21);
+            console.log(isWeekend(new Date(2026, 10, 20)));               // false (Friday)
+            console.log(isWeekend(saturday));                             // true
+            console.log(formatDate(nextBusinessDay(saturday)));           // 23/11/2026
+            console.log(formatDate(nextBusinessDay(new Date(2026, 10, 22)))); // 23/11/2026 (Sunday → Monday)
+            console.log(formatDate(nextBusinessDay(new Date(2026, 10, 23)))); // 23/11/2026 (Monday stays)
+            console.log(formatDate(saturday));    
+            console.log(mxn(5872.5));                   // MXN $5872.50
+            console.log(makeFormatter("USD")(1500));    // USD $1500.00
+            console.log(isValidAmount(100));            // true
+            console.log(isValidAmount("100"));          // false
+            console.log(isValidAmount(-5));             // false
+            console.log(isValidAmount(Number("abc")));  // false
+            console.log(projectPrice(450, 12.5));       // 5625
+            console.log(projectPrice("450", 10));       // 0
+            console.log(applyDiscount(5625, 0.1));      // 5062.5
+            console.log(applyDiscount(1000, 0.5));      // 700  ← capped at 30%
+            console.log(applyDiscount(1000));           // 1000 ← default 0
+            console.log(addTax(5062.5));                // 5872.5
+            console.log(addTax(1000, 0));               // 1000
+            console.log(minimumCharge(800));            // 1500
+            console.log(minimumCharge(5872.5));         // 5872.5
+            console.log(`${nextInvoice()} | Issued ${formatDate(invoiceDate)} | Due ${formatDate(dueDate)} (${daysBetween(invoiceDate, dueDate)} days) | Total ${mxn(total)}`);
+            console.log(minimumCharge(addTax(applyDiscount(projectPrice(100, 5), 0.1)))); // 1500
+
+            </script>
+    </body>
+</html>

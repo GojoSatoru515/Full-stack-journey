@@ -113,30 +113,80 @@ applyRule(100, addTax);
 12. const makeFee = (fee) => {
   return (amount) => amount + fee;
 }; // it needs the return, but you also need to declare a new const to return at the end of the sum.
-13. const makeMultiplier = (factor) => {
-  const double = makeMultiplier(2);
-  (p) => p * 2;
-  return double;
-}
+13. const makeMultiplier = (factor) => (n) => n * factor;
+
+const double = makeMultiplier(2);   // usage, outside
+double(7);
+
 14. const createTotal = () => {
   let counter = 0;
-  return () => {
-    counter += createTotal;
+  return (amount) => {
+    counter += amount;
     return counter;
   };
 };
   const cart = createTotal();
 15. const runTwice = (action) => {
-    let run = false;
-    return () => {
-      for(i=0; i<2; i++){
-        return "Done";
-      }
-      run = true;
-      return action();
+    action();
+    action();
     };
 
+REVIEW day 23
+1. someone create a function that is in the backpack, everytime you call the function you open the backpack. but nobody from outside can open the backpack
+2. is a function that gives another function.
+3. all the variables and values taht makeTax has
+4. 15, because the initial value of add10 is 10 then whatever number you add to the const is goint to sum the initial value.
+5. it would give you price which is the value assign to rate
+6. the first one is going to work and the other one no haha, the first one is going to print the value value of the function and the other one what the function doesn
+7. -3, -2
+8. math.max(tip,50). 50 and 80
+9. ok, 10
+10. 5.04 is a string
+
+
+Day 24
+quiz
+1. same input, same output, no side effects
+2. is a function you give to another function
+3. a function taht remembers the variables ffrom where it was created.
+4. 8
+5. 3, is variable or closure i dont know if that was what you meant
+6. Hola cliente, hola undefined
+7. 2, 1
+8. undefined, 1
+9. ReferenceError calc not defined
+10. -1, 3 , 3
+11. 12.003
+12. iva a function and r is not defined 
+13. const createCounter = () => {
+  let count = 0;
+  return () => {
+    count++;
+    return count;
+  };
 };
+const c = createCounter();
+const value = c();
+14. const makeGreeting = (greeting) => (name) => {
+    return `${greeting}, ${name}`;
+};
+  const hola = makeGreeting("Hola");
+  // i have no idea how to make the greeting with that initial conditions
+15. const createVisitCounter = () => {
+  let count = 0;
+  return () => {
+    count++;
+    return count;
+  };
+};
+16. math.min(discount,0.3), .3 and .1
+
+retro part
+1. well it depends jaja, im kidding but what i realized is that i really need tto make review of the topics because ok when i reading the topic and i have to use it i can do it, but this week took me like 2 real weeks so basically i split the day in 2 o more so when i tried to maka built part o answer the wrap i didn't remember anything, i think i will need to make sure to make time to dedicate to this, cause these past week i could not. maybe is my fault, but is not like im not learning from other things, im building a completly web site with ai that has database backend frontend, is in typescript and now im trying to deploy the app, so im working right kno to put the prisma in neon.
+2. the hardest part was the conscepts and some built task, it took me a lot to understand how to make it work, sometimes i got stuck with something and i can not continue i don't know why is that.
+3. maybe too much i think im mean i liked the problems and the difficulty cause it forced me to improve myself but i need more time in the day i think, maybe we can adjust to little bit less content and see for the next day
+
+3. actually the way i make it work is that i divide every stage for example the backend in different stages and i asked for an explanation and a practical example of what the ai change and in what files, then i checked the files and tried to ask a lot of questions in order to understand all the functionality. but yeah im going to ask you if anything feels fuzzy. i liked the the endpoints and the testing of them and tha apis alson was something i liked. 
 
 
 
